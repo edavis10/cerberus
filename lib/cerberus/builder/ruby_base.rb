@@ -10,6 +10,9 @@ class Cerberus::Builder::RubyBase
   end
 
   def run
+    build_dir = @config[:builder, :build_dir]
+    Dir.chdir(build_dir) if build_dir
+
     @output = `#{@config[:bin_path]}#{choose_exec()} #{@config[:builder, @name.to_sym, :task]} 2>&1`
     successful?
   end
